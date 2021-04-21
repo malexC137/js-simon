@@ -14,10 +14,13 @@ Consigli del giorno:
 * Individuate gli elementi di cui avete bisogno per realizzare il programma.*/
 
 var computerNumbers = [];
+var userNumbers = [];
 var nNumbers = 5;
+var newArr = [];
+
 
 //creo una funzione che mi generi un'array di n numeri random
-function getRandomNumbers (arr, num) {
+function getRandomNumbers(arr, num) {
     for (var i = 0; i < num; i++) {
         generatedNum = Math.floor(Math.random() * (100 - 1) + 1);
         arr.push(generatedNum);
@@ -25,45 +28,35 @@ function getRandomNumbers (arr, num) {
     return arr
 }
 
-var generatedNumbers = getRandomNumbers(computerNumbers, nNumbers);
+var computerNumbers = getRandomNumbers(computerNumbers, nNumbers);
+alert("Tieni bene a mente questi numeri: " + computerNumbers);
 
-// console.log(generatedNumbers);
-
-
-//Creo una funzione che compari la lunghezza ed il contenuto delle due array, ossia quella dei numeri generati 
-//dal computer e quella dei numeri inseriti dall'utente
-/*function isArrayEqual(a, b, c) {
-    for (var i = 0; i < a.length; i++) {
-        if (a[i] === b[i]) {
-            var c = []
-            c.push(b[i])
-            return alert("Hai indovinato " + c.length + " numeri, che sono: " + [i]) 
-        } 
-        if (a.length != b.length) {
-            return alert("Non hai inserito tutti i numeri")
-        } 
+//Imposto una timing function per stabilire quanto tempo l'utente avrà a disposizione per memorizzare i numeri
+var wait = setTimeout(function () {
+    //Creo un ciclo for per il numero di volte in cui l'utente dovrà inserire un numero
+    for (var i = 0; i < nNumbers; i++) {
+        var userNumber = parseInt(prompt("Ti ricordi quali erano i numeri?"));
+        userNumbers.push(userNumber);
+        if (isNaN(userNumber)) {
+            alert("Sono ammessi solo numeri");
+            parseInt(prompt("Ti ricordi quali erano i numeri?"))
+        }
     }
 
-    return alert("I numeri inseriti sono uguali")
-}*/
-
-var myNumbers = [1, 2, 3, 3, 15, 28, 34, 98, 90];
-var userNumbers = [1, 2, 3, 4, 15, 15, 28, 34, 90];
-var myArr = [];
-
-// var myArrays = isArrayEqual(myNumbers, userNumbers, myArr);
-
-// console.log(myArrays);
-
-for (var i = 0; i < myNumbers.length; i++) {
-    if (myNumbers[i] === userNumbers[i]) {
-        myArr.push(userNumbers[i])
-    } 
-}
-
-console.log("Hai indovinato " + myArr.length + " numeri, che sono: " + myArr) 
-
-
-// if (a[i] != b[i]) {
-//     return alert("I numeri non sono uguali")
-// } 
+    //Controllo che i numeri digitati dall'utente corrispondano interamente o 
+    //parzialmente a quelli generati dal computer
+    for (var i = 0; i < userNumbers.length; i++) {
+        if (computerNumbers.indexOf(userNumbers[i]) != -1) {
+            newArr.push(userNumbers[i]);
+        }
+    }
+    //Stabilisco in base alle condizioni che si verificheranno, quali informazioni fornire all'utente
+    if (newArr.length === nNumbers) {
+        alert("Complimenti, hai indovinato tutti i numeri!")
+    } else if (newArr.length === 0) {
+        alert("Purtroppo non hai indovinato neanche un numero.")
+    } else {
+        alert("Hai indovinato " + newArr.length + " numeri, che sono: " + newArr);
+    }
+//La durata della timing function
+}, 5000);
