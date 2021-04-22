@@ -28,6 +28,8 @@ function getRandomNumbers(arr, num) {
     return arr
 }
 
+//Salvo la funzione in una variabile invocandola e creo un alert che avvisi l'utente 
+//quali sono i numeri che dovrà tenere a mente
 var computerNumbers = getRandomNumbers(computerNumbers, nNumbers);
 alert("Tieni bene a mente questi numeri: " + computerNumbers);
 
@@ -59,4 +61,4 @@ var wait = setTimeout(function () {
         alert("Hai indovinato " + newArr.length + " numeri, che sono: " + newArr);
     }
 //La durata della timing function
-}, 5000);
+}, 30000);
